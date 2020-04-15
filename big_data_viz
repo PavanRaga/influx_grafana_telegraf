@@ -1,0 +1,16 @@
+https://grafana.com/grafana/dashboards/968
+https://devconnected.com/how-to-setup-telegraf-influxdb-and-grafana-on-linux/
+https://docs.influxdata.com/telegraf/v1.11/plugins/plugin-list/#logparser
+https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/logparser/README.md
+http://fileformats.archiveteam.org/wiki/Combined_Log_Format
+
+
+influx
+sudo docker run --network new -p 8086:8086 -v $PWD:/var/lib/influxdb -e INFLUXDB_DB=name --name=influx influxdb
+
+
+influx client
+sudo docker run --rm --network new -it influxdb influx -host influx
+
+telegraf
+sudo docker run -v $PWD/telegraf.conf:/etc/telegraf/telegraf.conf:ro -v /var/log/httpd/access_log:/var/log/httpd/access_log --network new telegraf

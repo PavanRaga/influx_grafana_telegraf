@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+    influx:
+        image: influxdb
+        container_name: influxdb
+        ports:
+            - 8086:8086
+        volumes: 
+            - "./influx_bckp:/var/lib/influxdb"
+        environment: 
+            - INFLUXDB_DB=weblogs
+            - INFLUXDB_ADMIN_USER=root
+            - INFLUXDB_ADMIN_PASSWORD=root
+    telegraf:
+        image: telegraf
+        container_name: telegraf
+        volumes:
+            - "./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro"
+            - "./telegraf/200_access_logs:/var/log/httpd/access_log"
+    grafana:
+        image: grafana/grafana
+        container_name: grafana
+        ports:
+            - 3000:3000
+        volumes: 
+            - "./grafana_bckp:/var/lib/grafana"
+        user:
+            root
+    
+        # environment: 

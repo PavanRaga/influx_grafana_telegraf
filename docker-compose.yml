@@ -27,5 +27,13 @@ services:
             - "./grafana_bckp:/var/lib/grafana"
         user:
             root
-    
-        # environment: 
+    mysql:
+        image: mysql
+        container_name: mysql
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./mysql_bckp:/var/lib/mysql"
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=weblogs
